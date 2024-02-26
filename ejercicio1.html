@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // crea variable para mandar el formulario
+        let form = document.getElementById("formulario")
+        form.addEventListener('submit', function (event) {
+            event.preventDefault()
+            limpiar()
+            // Creacion de variables  para los campos y sus valores
+            let name = document.getElementById("nombre").value;
+            let subject = document.getElementById("asunto").value;
+            let message = document.getElementById("mensaje").value;
+            let resultado = validar(name, subject, message);
+            if (resultado == true) {
+                exito()
+            }
+        })
+
+        // borra el mensaje impreso por cada error o de exito si estos cambian
+        function limpiar(){
+            document.querySelector(".resultado").innerHTML = "";
+            document.querySelector(".errorNombre").innerHTML = "";
+            document.querySelector(".errorAsunto").innerHTML = "";
+            document.querySelector(".errorMensaje").innerHTML = "";
+        }
+
+        // cuando se cumplen todas las condiciones, imprime un mensaje de éxito
+        function exito(){
+            document.querySelector(".resultado").innerHTML = "Mensaje enviado con éxito";
+        }
+
+        // Función para revisar si lo ingresado es correcto o no
+        function validar(name, subject, message){
+            let pasamos = true;
+            let validaciónNombre = /[a-zA-Z]/gim
+            if(validaciónNombre.test(name) == false){
+                document.querySelector(".errorNombre").innerHTML = 'El nombre es requerido';
+                pasamos = false;
+            }
+
+            let validaciónAsunto = /[a-zA-Z]/gim
+            if(validaciónAsunto.test(subject) == false){
+                document.querySelector(".errorAsunto").innerHTML = 'El asunto es requerido';
+                pasamos = false;
+            }
+            let validaciónMensaje = /[a-zA-Z]/gim
+            if(validaciónMensaje.test(message) == false){
+                document.querySelector(".errorMensaje").innerHTML = 'El mensaje es requerido';
+                pasamos = false;
+            }
+            return pasamos;
+        }
+    </script>
+</body>
+
+</html>
